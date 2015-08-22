@@ -1,0 +1,39 @@
+{% extends 'registration/registration_base.html' %}
+
+{% block subtitle %}Login{% endblock %}
+
+{% block page_header %}
+    <h3 class="text-center">YGOrganizer</h3>
+{% endblock %}
+
+{% block page_body %}
+    {% if form.errors %}
+    <ul class="list-group">
+        <li class="list-group-item text-danger">
+            Your username and password didn't match. Please try again.
+        </li>
+    </ul>
+    {% endif %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {% include 'form/input.html' with field=form.username %}
+
+        {% include 'form/input.html' with field=form.password input_type='password' %}
+
+        <hr />
+
+        <div class="text-right">
+            <a href="{% url 'auth_password_reset' %}" class="pull-left">
+                Forgot your password?
+            </a>
+
+            <button type="submit" name="login" class="btn btn-primary btn-sm">Log In</button>
+
+            <a href="{% url 'registration_register' %}" class="btn btn-default btn-sm">Register</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </form>
+{% endblock %}

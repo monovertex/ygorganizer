@@ -1,0 +1,64 @@
+{% extends 'page_base.html' %}
+{% load staticfiles %}
+
+{% block subtitle %}Homepage{% endblock %}
+
+{% block content_class %}index{% endblock %}
+
+{% block link_index %}active{% endblock %}
+
+{% block content %}
+
+    <header class="home-header">
+        <div class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="YGOrganizer" />
+
+            <h1 class="title">YGOrganizer</h1>
+        </div>
+
+        <p class="subtitle">
+            Stop using manual indexing to keep track of your Yu-Gi-Oh TCG Collection!
+        </p>
+
+        <p class="splash">
+            <strong>YGOrganizer</strong> offers you the better way to manage and value your cards.
+            <br />
+            Go ahead and get started!
+        </p>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-3 col-xs-6 col-xs-offset-3">
+                    <a class="btn btn-default btn-lg btn-block login" href="{% url 'auth_login' %}">
+                        Log In
+                    </a>
+                </div>
+
+                <div class="col-sm-3 col-sm-offset-0 col-xs-6 col-xs-offset-3">
+                    <a class="btn btn-warning btn-lg btn-block register" href="{% url 'registration_register' %}">
+                        Register
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <footer class="home-footer">
+        <a href="http://monovertex.com" target="_blank">
+            Monovertex
+        </a>
+
+        <a href="http://yugiohprices.com/" target="_blank">
+            Yu-Gi-Oh! Prices
+        </a>
+
+        <a href="http://yugioh.wikia.com/" target="_blank">
+            Yu-Gi-Oh! Wikia
+        </a>
+
+        <a href="http://www.yugioh-card.com/" target="_blank">
+            Yu-Gi-Oh! Konami
+        </a>
+    </footer>
+
+{% endblock %}

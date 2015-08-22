@@ -1,0 +1,17 @@
+{% extends 'registration/registration_base.html' %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="5;url={% url 'auth_login' %}" />
+{% endblock %}
+
+{% block subtitle %}Logged out{% endblock %}
+
+{% block page_header %}
+    <strong>Successfully logged out</strong>
+{% endblock %}
+
+{% block page_body %}
+    <p>
+        Please wait, you will be redirected to the <a href="{% url 'auth_login' %}">login page</a>.
+    </p>
+{% endblock %}

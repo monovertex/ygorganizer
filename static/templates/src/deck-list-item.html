@@ -1,0 +1,40 @@
+
+
+<div class="col-md-4 col-sm-6 col-xs-12">
+
+    <a href="/deck/<%=id %>" class="follow deck btn btn-default">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="deck-cards-preview">
+                    <% _.each(card_previews, function (preview) { %>
+                    <div class="card-preview-wrapper">
+                        <div class="card-preview"
+                            style="background-image:url('<%=preview %>');">
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+
+            <div class="col-xs-8 deck-info-wrapper">
+                <div class="deck-info">
+                    <h3 class="name"><%=name %></h3>
+
+                    <h5 class="card-count">
+                        <span class="label label-primary">Total: <%=count %></span>
+                        <span class="label label-success">Main: <%=count_main %></span>
+                        <span class="label label-info">Extra: <%=count_extra %></span>
+                        <span class="label label-default">Side: <%=count_side %></span>
+                    </h5>
+
+                    <div class="footer text-right">
+                        <button type="button" class="btn btn-warning delete">
+                            <i class="fa fa-trash fa-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+</div>

@@ -1,0 +1,290 @@
+
+
+.list {
+    height: 100%;
+    .display(flex);
+
+    .table-wrapper,
+    .card-wrapper {
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .table-wrapper {
+
+        background-color: @navbar-default-bg;
+        position: relative;
+
+        .display(flex);
+        .flex-direction(column);
+        .flex(1 1 auto);
+
+        .table-container-outer,
+        .table-footer {
+            width: 100%;
+        }
+
+        .table-container-outer {
+            position: relative;
+
+            .flex(1 1 auto);
+
+            .table-container {
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                overflow-y: hidden;
+                background-color: @body-bg;
+
+                table {
+
+                    .number-cell,
+                    .percent-cell {
+                        text-align: center;
+                    }
+
+                    .set_number,
+                    .card\.name,
+                    .card\.card_type\.name,
+                    .rarity\.name,
+                    .card\.status_advanced\.name,
+                    .card_set\.name {
+                        text-align: left;
+                    }
+
+                    thead th {
+                        background-color: transparent;
+                    }
+
+                    tbody {
+
+                        tr {
+                            background-color: @body-bg;
+
+                            .transition(background-color 0.2s ease-in);
+
+                            &:hover {
+                                background-color: darken(@body-bg, 2%);
+                            }
+
+                            td a {
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+
+                .jumbotron {
+                    margin-top: 30px;
+                }
+            }
+        }
+
+        .table-footer {
+            @padding: 5px;
+
+            padding: @padding 0;
+
+            .flex(0 0 auto);
+
+            .table-filter {
+                .backgrid-filter {
+                    margin: 0;
+                    width: 100%;
+
+                    input {
+                        width: 100%;
+                        position: static;
+                        height: @input-height-small;
+
+                        .box-sizing(border-box);
+                    }
+                }
+            }
+
+            .table-paginator {
+                .pagination {
+                    margin: 0;
+                    vertical-align: middle;
+                }
+            }
+
+            .statistics {
+                display: none;
+                border-bottom: 1px solid @table-border-color;
+                margin-bottom: @padding;
+
+                .statistics-row {
+                    @height: 24px;
+
+                    text-align: right;
+                    height: @height;
+
+                    .statistics-cell,
+                    .statistics-head {
+                        height: @height;
+                        line-height: @height;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+
+                    .statistics-cell {
+                        text-align: center;
+
+                        &.statistics-subtotal-count-wrapper,
+                        &.statistics-total-count-wrapper {
+                            width: 100px;
+                            text-align: left;
+                        }
+                    }
+
+                    .statistics-head {
+                        text-align: right;
+                    }
+
+                    &.totals {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        .counter-cell {
+            @btn-width: 20px;
+            @count-width: 25px;
+            @width: (@btn-width * 2 + @count-width);
+
+            width: @width;
+
+            .box-sizing(content-box);
+
+            .count-wrapper {
+                width: @width;
+
+                .btn,
+                .count {
+                    opacity: 0.1;
+                    vertical-align: middle;
+                    display: inline-block;
+
+                    .transition(opacity 0.2s ease-in);
+                }
+
+                .btn {
+                    color: @gray-dark;
+                    width: @btn-width;
+                    border: 0 solid transparent;
+                    background-color: transparent;
+                    padding: 0;
+                    margin: 0;
+                    font-size: 25px;
+                    height: 100%;
+                    overflow: hidden;
+                }
+
+                .count {
+                    width: @count-width;
+                    font-size: @font-size-large;
+                    text-align: center;
+                    font-weight: bold;
+                }
+            }
+
+            &.zero .count-wrapper .count {
+                color: @gray-dark;
+            }
+        }
+
+        tr:hover {
+            .count-wrapper {
+                .btn,
+                .count {
+                    opacity: 0.3;
+                }
+            }
+        }
+
+        .counter-cell {
+            .count-wrapper {
+                .btn:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            &.non-zero {
+                .count-wrapper {
+                    .count {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        @media all and (max-width: @grid-float-breakpoint) {
+            .table-container,
+            .table-footer {
+                position: static;
+            }
+
+            .table-container {
+                table {
+                    height: auto;
+                }
+            }
+
+            .table-footer {
+                height: auto;
+
+                .table-filter,
+                .table-filter .backgrid-filter,
+                .table-paginator,
+                .table-paginator .backgrid-paginator {
+                    height: auto;
+                    line-height: initial;
+                }
+
+                .table-paginator {
+                    text-align: center;
+                    padding: @padding-small-vertical;
+                }
+            }
+        }
+    }
+
+    .card-wrapper {
+        width: 0;
+        border-left: 0 solid @navbar-default-border;
+
+        .flex(0 0 auto);
+
+        &.open {
+            width: 30%;
+            border-left-width: @border-width;
+        }
+
+        @media all and (max-width: @grid-float-breakpoint) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            display: none;
+            z-index: 1000;
+            overflow: visible;
+
+            &.open {
+                border-width: 0;
+                display: block;
+                width: 100%;
+            }
+        }
+    }
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        display: block;
+    }
+
+}

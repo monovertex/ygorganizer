@@ -1,0 +1,82 @@
+{% extends 'page_base.html' %}
+{% load staticfiles %}
+
+{% block subtitle %}Decks{% endblock %}
+
+{% block content_class %}decks{% endblock %}
+
+{% block link_decks %}active{% endblock %}
+
+{% block content %}
+    <div class="deck-list">
+
+        <div class="container">
+
+            <div class="row deck-list-content">
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+
+                    <a href="/deck/" class="add-button btn btn-primary">
+                        <i class="fa fa-plus-circle fa-lg fa-fw"></i> Create New Deck
+                    </a>
+
+                </div>
+
+                {% for deck in decks %}
+                    <div class="col-md-4 col-sm-6 col-xs-12 deck-wrapper">
+
+                        <a href="{% url 'deck' deck.id %}" class="deck btn btn-default">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="deck-cards-preview">
+                                        {% for preview in deck.card_previews %}
+                                            <div class="card-preview-wrapper">
+                                                <div class="card-preview"
+                                                    style="background-image:url('{{ MEDIA_URL }}{{ preview }}');">
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-8 deck-info-wrapper">
+                                    <div class="deck-info">
+                                        <h3 class="name">{{ deck.name }}</h3>
+
+                                        <h5 class="card-count">
+                                            <span class="label label-primary">
+                                                Total: {{ deck.count }}
+                                            </span>
+
+                                            <span class="label label-success">
+                                                Main: {{ deck.count_main }}
+                                            </span>
+
+                                            <span class="label label-info">
+                                                Extra: {{ deck.count_extra }}
+                                            </span>
+
+                                            <span class="label label-default">
+                                                Side: {{ deck.count_side }}
+                                            </span>
+                                        </h5>
+
+                                        <div class="footer text-right">
+                                            <button type="submit" class="btn btn-warning delete" data-deck="{{ deck.id }}">
+                                                <i class="fa fa-trash fa-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

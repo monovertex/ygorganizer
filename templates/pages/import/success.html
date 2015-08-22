@@ -1,0 +1,17 @@
+{% extends 'pages/import/base.html' %}
+
+{% block subtitle %}Data Imported Successfully{% endblock %}
+
+{% block content_class %}import{% endblock %}
+
+{% block link_import %}active{% endblock %}
+
+{% block content_small %}
+    <div class="page-header">
+        <strong>The data has been imported successfully</strong>
+    </div>
+
+    <p>
+        You can either go back to the <a href="{% url 'import' step='upload' %}">import page</a> to add more data, or <a href="{% url 'collection' %}">browse your collection</a>.
+    </p>
+{% endblock %}

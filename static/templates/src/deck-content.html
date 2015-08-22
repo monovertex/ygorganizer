@@ -1,0 +1,68 @@
+
+<div class="deck-controls">
+    <div class="form-inline pull-left">
+        <div class="form-group">
+            <input type="text" class="form-control" id="deck-name" placeholder="Deck Name" value="<%=name %>">
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-primary save">Save</button>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-danger delete pull-right">
+        <i class="fa fa-trash fa-lg"></i>
+    </button>
+
+    <div class="clearfix"></div>
+</div>
+
+<div class="deck">
+    <div class="deck-main-wrapper">
+        <div class="header">
+            <h3 class="title pull-left">Main Deck</h3>
+
+            <span class="label label-primary pull-right">
+                <%=count_main %> cards
+            </span>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="deck-main deck-content"></div>
+        </div>
+    </div>
+
+    <div class="deck-extra-wrapper">
+        <div class="header">
+            <h3 class="title pull-left">Extra Deck</h3>
+
+            <span class="label label-primary pull-right">
+                <%=count_extra %> cards
+            </span>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="deck-extra deck-content"></div>
+        </div>
+    </div>
+
+    <div class="deck-side-wrapper">
+        <div class="header">
+            <h3 class="title pull-left">Side Deck</h3>
+
+            <span class="label label-primary pull-right">
+                <%=count_side %> cards
+            </span>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="deck-side deck-content"></div>
+        </div>
+    </div>
+</div>

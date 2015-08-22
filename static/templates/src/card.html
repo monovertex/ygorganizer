@@ -1,0 +1,217 @@
+
+
+<div class="card container-fluid">
+
+    <div class="top row">
+        <div class="col-xs-12">
+            <h1 class="title">
+                <% if (!_.isUndefined(rootUrl)) { %>
+                <a href="<%=rootUrl %>" class="pull-right follow">
+                    <i class="fa fa-times"></i>
+                </a>
+                <% } %>
+
+                <%=name %>
+            </h1>
+
+            <% if (image_medium) { %>
+            <img class="image" src="<%=image_medium %>" alt="<%=name %>" />
+            <% } %>
+
+            <div><small><%=number %></small></div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="information">
+        <div class="row">
+            <div class="type col-xs-12">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <strong>type</strong>:
+                        <% if (card_type) { %>
+                            <%=card_type.attributes.name %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+
+                    <% if (card_type) { %>
+                    <div class="col-xs-6 text-right stars">
+                        <% if (card_type.attributes.identifier == 'monster') { %>
+                        <% if (monster_level) { %>
+                        <% for (var i = 0; i < monster_level; i++) {
+                            %><i class="fa fa-star"></i><% } %>
+                            <strong><%=monster_level %></strong>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <% } else { %>
+                    <div class="col-xs-6 text-right">
+                        <strong><abbr title="Property">Prop</abbr></strong>:
+                        <% if (spell_trap_property) { %>
+                            <%=spell_trap_property.attributes.name %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+                    <% } %>
+                </div>
+
+                <% if (card_type) { %>
+                <% if (card_type.attributes.identifier == 'monster') { %>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <strong><abbr title="Attack">ATT</abbr></strong>:
+                        <% if (monster_attack) { %>
+                            <%=monster_attack %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+
+                    <div class="col-xs-4 text-center">
+                        <strong><abbr title="Defense">DEF</abbr></strong>:
+                        <% if (monster_defense) { %>
+                            <%=monster_defense %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+
+                    <div class="col-xs-4 text-right">
+                        <strong><abbr title="Attribute">Attr</abbr></strong>:
+                        <% if (monster_attribute) { %>
+                            <%=monster_attribute.attributes.name %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <strong>Types</strong>:
+
+                        <% if (card_monster_types.length) { %>
+                        <% card_monster_types.each(function (cardMonsterType, i) { %>
+                            <%=cardMonsterType.attributes.monster_type
+                                .attributes.name %>
+
+                            <% if (i < card_monster_types.length - 1) { %>
+                                /
+                            <% } %>
+                        <% }); %>
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+                <% } %>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="description col-xs-12">
+            <% if (description) { %>
+                <strong>Description</strong>:<br />
+                <%=description %>
+            <% } else { %>
+                No description.
+            <% } %>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-xs-6">
+                <strong>Advanced</strong>:
+                <% if (status_advanced) { %>
+                    <%=status_advanced.attributes.name %>
+                <% } else { %>
+                    N/A
+                <% } %>
+            </div>
+
+            <div class="col-xs-6 text-right">
+                <strong>Traditional</strong>:
+                <% if (status_traditional) { %>
+                    <%=status_traditional.attributes.name %>
+                <% } else { %>
+                    N/A
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="versions row">
+        <div class="col-xs-12">
+            <ul class="list-group">
+                <% card_versions.each(function (cardVersion) { %>
+                <li class="list-group-item">
+                    <strong><%=cardVersion.attributes.card_set.attributes.name %></strong>
+
+                    <% if (cardVersion.get('price_shift_text')) { %>
+                        <span class="pull-right
+                            <% if (cardVersion.get('price_shift') > 0) { %>
+                                text-success
+                            <% } else if (cardVersion.get('price_shift') < 0) { %>
+                                text-danger
+                            <% } %>">
+                            <%=cardVersion.attributes.price_shift_text %>
+
+                            <% if (cardVersion.get('price_shift') > 0) { %>
+                                <i class="fa fa-long-arrow-up"></i>
+                            <% } else if (cardVersion.get('price_shift') < 0) { %>
+                                <i class="fa fa-long-arrow-down"></i>
+                            <% } %>
+                        </span>
+                    <% } %>
+
+                    <div class="clearfix"></div>
+
+                    <span class="pull-left">
+                        <%=cardVersion.attributes.set_number %> - <%=cardVersion.attributes.rarity.attributes.name %>
+                    </span>
+
+                    <span class="pull-right">
+                        <span title="Low">
+                            <% if (cardVersion.attributes.price_low) { %>
+                                $<%=cardVersion.attributes.price_low %>
+                            <% } else { %>
+                                ?
+                            <% } %>
+                        </span>
+                        /
+                        <span title="Average">
+                            <% if (cardVersion.attributes.price_avg) { %>
+                                $<%=cardVersion.attributes.price_avg %>
+                            <% } else { %>
+                                ?
+                            <% } %>
+                        </span>
+                        /
+                        <span title="High">
+                            <% if (cardVersion.attributes.price_high) { %>
+                                $<%=cardVersion.attributes.price_high %>
+                            <% } else { %>
+                                ?
+                            <% } %>
+                        </span>
+                    </span>
+
+                    <div class="clearfix"></div>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+
+</div>

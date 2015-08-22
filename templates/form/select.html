@@ -1,0 +1,12 @@
+{% extends 'form/field.html' %}
+
+{% block field_body %}
+    <select class="form-control"
+            id="{{ field.id_for_label }}"
+            name="{{ field.html_name }}"
+            {% if not optional %}required="required"{% endif %}>
+        {% for choice in field.choices %}
+            <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+        {% endfor %}
+    </select>
+{% endblock %}

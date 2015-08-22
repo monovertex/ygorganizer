@@ -1,0 +1,15 @@
+{% extends 'page_base.html' %}
+
+{% block content %}
+    {% block before_content_small %}{% endblock %}
+
+    <div class="{% block container_class %}container{% endblock %}">
+        <div class="row">
+            <div class="{% block wrapper_classes %}col-md-6 col-md-offset-3
+                col-sm-8 col-sm-offset-2
+                col-xs-12 col-xs-offset-0{% endblock %}">
+                {% block content_small %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

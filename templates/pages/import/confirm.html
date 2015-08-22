@@ -1,0 +1,179 @@
+{% extends 'pages/import/base.html' %}
+
+{% block subtitle %}Confirm Import Data{% endblock %}
+
+{% block content_class %}import{% endblock %}
+
+{% block link_import %}active{% endblock %}
+
+{% block container_class %}container-fluid{% endblock %}
+
+{% block wrapper_classes %}col-xs-12{% endblock %}
+
+{% block content_small %}
+    <div class="page-header">
+        <p>
+            <strong>Confirm import data</strong>
+        </p>
+
+        <p>
+            Review the data that will be imported. If anything went wrong, use the links above to go back to any previous step.
+        </p>
+    </div>
+
+    <div class="row">
+        {% if view.import_data.invalid_set_numbers or view.import_data.not_found_set_numbers %}
+            <div class="col-md-4 col-sm-12">
+                {% if view.import_data.invalid_set_numbers %}
+                    <div class="panel panel-danger">
+                        <div class="panel-heading" id="set-numbers-invalid-heading">
+                            <h4 class="panel-title">
+                            <strong>{{ view.import_data.invalid_set_numbers_count }}</strong>
+                            invalid {% if view.import_data.invalid_set_numbers_count == 1 %}code{% else %}codes{% endif %}
+                            </h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                {% for code in view.import_data.invalid_set_numbers %}
+                                    <tr>
+                                        <td>{{ code }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if view.import_data.not_found_set_numbers %}
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                Not found in the database
+                            </h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td class="text-center">#</td>
+                                        <td class="text-left">Set Number</td>
+                                        <td class="text-center">Count</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for set_number, count in view.import_data.not_found_set_numbers.items %}
+                                        <tr>
+                                            <td class="text-center">{{forloop.counter}}</td>
+
+                                            <td class="text-left">
+                                                {{ set_number }}
+                                            </td>
+
+                                            <td class="text-center">
+                                                {{ count }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-right">
+                                            Total
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ view.import_data.not_found_set_numbers_total }}
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="col-md-8 col-sm-12
+            {% if not view.import_data.invalid_set_numbers and not view.import_data.not_found_set_numbers %}
+                col-md-offset-2
+            {% endif %}">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Valid set numbers
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <td class="text-center">#</td>
+                                <td>Set Number</td>
+                                <td>Card Name</td>
+                                <td>Rarity</td>
+                                <td class="text-center">Count</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for set_number, rarities in view.import_data.all_valid_set_numbers.items %}
+                                {% for rarity_identifier, data in rarities.items %}
+                                    <tr>
+                                        {% if forloop.counter == 1 %}
+                                            <td class="text-center" rowspan="{{ rarities | length }}">
+                                                {{ forloop.parentloop.counter }}
+                                            </td>
+
+                                            <td rowspan="{{ rarities | length }}">
+                                                {{ set_number }}
+                                            </td>
+
+                                            <td rowspan="{{ rarities | length }}">
+                                                {{ data.name }}
+                                            </td>
+                                        {% endif %}
+
+                                        <td>
+                                            {{ data.rarity_name }}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ data.count }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="text-right">
+                                    Total
+                                </td>
+
+                                <td class="text-center">
+                                    {{ view.import_data.all_valid_set_numbers_total }}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="form" method="post" action="">
+        {% csrf_token %}
+
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">
+                Confirm Import
+            </button>
+        </div>
+    </form>
+{% endblock %}

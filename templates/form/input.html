@@ -1,0 +1,10 @@
+{% extends 'form/field.html' %}
+
+{% block field_body %}
+    <input type="{% if input_type %}{{ input_type }}{% else %}text{% endif %}"
+        class="form-control"
+        id="{{ field.id_for_label }}"
+        name="{{ field.html_name }}"
+        {% if not optional %}required="required"{% endif %}
+        value="{{ field.value |default_if_none:'' }}" />
+{% endblock %}

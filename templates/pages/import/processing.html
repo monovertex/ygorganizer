@@ -1,0 +1,23 @@
+{% extends 'pages/import/base.html' %}
+
+{% block subtitle %}Processing Import{% endblock %}
+
+{% block content_class %}import{% endblock %}
+
+{% block link_import %}active{% endblock %}
+
+{% block content_small %}
+    <div class="page-header">
+        <p>
+            <strong>Your import is being processed</strong>
+        </p>
+
+        <p>
+            Your import has been queued and will be processed shortly. You can refresh this page to see if the import finished.
+        </p>
+
+        <p>
+            To avoid overloading the server, you cannot do multiple imports at once. Also, if you change the amount of cards you have while an import is processing, the results may be unpredictable. It is advised for the process to finish.
+        </p>
+    </div>
+{% endblock %}

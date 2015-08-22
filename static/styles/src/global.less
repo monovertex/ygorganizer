@@ -1,0 +1,231 @@
+
+@transition-duration: 0.2s;
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        height: auto;
+        position: relative;
+    }
+}
+
+.no-display { display: none; }
+
+.radio-inline + .radio-inline,
+.checkbox-inline + .checkbox-inline {
+    margin-left: 0;
+}
+
+.radio-inline,
+.checkbox-inline {
+    margin-right: 10px;
+}
+
+.asteriskField {
+    margin-left: @padding-xs-horizontal;
+    color: @brand-danger;
+}
+
+// Global components.
+
+.global-header,
+.global-wrapper,
+.global-footer {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        position: static;
+    }
+}
+
+@header-height: @navbar-height;
+
+.global-header {
+    height: @header-height;
+    top: 0;
+    z-index: 2;
+
+    .navbar {
+        margin-bottom: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        background-color: @gray-darker;
+
+        .border-radius(0);
+
+        .navbar-brand {
+            height: @navbar-height;
+            padding: @padding-small-vertical 0
+                @padding-small-vertical @padding-large-horizontal;
+
+            img {
+                height: 100%;
+            }
+        }
+
+        li {
+            a {
+                &,
+                &:focus,
+                &:visited {
+                    color: @gray-lighter;
+                }
+
+                &:hover {
+                    color: @gray-light;
+                }
+            }
+
+            &.active {
+                & > a {
+                    color: @gray-light !important;
+                }
+            }
+        }
+
+        .dropdown {
+            &.open {
+                .dropdown-toggle {
+                    color: @gray-light;
+                }
+            }
+
+            .dropdown-menu {
+                background-color: @gray-dark;
+                border-color: @gray-dark;
+            }
+        }
+
+        li.image-link {
+            @image-height: (@header-height * 0.4);
+            @space: ((@navbar-height - @image-height) / 2);
+
+            margin-right: @padding-small-horizontal;
+            height: @navbar-height;
+            padding: (@space / 2) 0;
+
+            a {
+                padding: (@space / 2);
+                background-color: @gray-lighter;
+                height: 100%;
+
+                .border-radius(@border-radius-base);
+
+                img {
+                    height: @image-height;
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        height: auto;
+    }
+}
+
+.page-header {
+    margin-top: 20px;
+}
+
+#nprogress {
+
+    @spinner-size: 18px;
+
+    .spinner {
+        top: ((@header-height - @spinner-size) / 2);
+        left: 50%;
+        right: initial;
+        position: absolute;
+
+        .translateX(-50%);
+
+        .spinner-icon {
+            width: @spinner-size;
+            height: @spinner-size;
+        }
+    }
+
+    .bar {
+        top: @header-height;
+        height: 3px;
+
+        .peg {
+            display: none;
+        }
+    }
+}
+
+.global-wrapper {
+    top: @header-height;
+    bottom: 0;
+    overflow-y: auto;
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        overflow: visible;
+    }
+}
+
+.error-page {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+
+    .transform(translateX(-50%) translateY(-50%));
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        position: static;
+        top: 0;
+
+        .transform(translateY(-50%));
+    }
+}
+
+hr {
+    margin: 10px 0;
+}
+
+button,
+a {
+    outline: none !important;
+}
+
+a,
+a:hover,
+a:focus,
+a:visited,
+a:active {
+    text-decoration: none;
+
+    .transition(color @transition-duration);
+}
+
+.bitcoin {
+    img {
+        width: 100%;
+        max-width: 100px;
+
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+        -ms-interpolation-mode: nearest-neighbor;
+    }
+}
+
+.row.flex-row {
+    .display(flex);
+    .flex-direction(row);
+    .align-items(center);
+}

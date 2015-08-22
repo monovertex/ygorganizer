@@ -1,0 +1,17 @@
+{% extends 'small_page_base.html' %}
+
+{% block before_content_small %}
+    <ol class="breadcrumb">
+        {% for step, info in view.steps.items %}
+            <li {% if step == view.step %}class="active"{% endif %}>
+                {% if step < view.step %}
+                    <a href="{% url 'import' step=info.identifier %}">
+                {% endif %}
+
+                {{ info.name }}
+
+                {% if step < view.step %}</a>{% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

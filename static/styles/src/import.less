@@ -1,0 +1,112 @@
+
+.page-import {
+
+    padding-bottom: @padding-large-vertical;
+
+    .breadcrumb {
+        margin-bottom: 0;
+        border-width-left: 0;
+        border-width-right: 0;
+        text-align: center;
+
+        & > li {
+
+            &.active {
+                color: @brand-success;
+            }
+
+            & + li::before {
+                .fa();
+                content: @fa-var-angle-double-right;
+            }
+        }
+    }
+
+    .table {
+
+        td {
+            vertical-align: middle;
+            border-bottom: 1px solid darken(@body-bg, 4%);
+        }
+
+        tr:last-child {
+            td {
+                border-bottom: 0;
+            }
+        }
+
+        tfoot,
+        thead {
+            tr {
+                background-color: @gray-lighter;
+
+                td,
+                th {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .panel-body {
+        max-height: 400px;
+        overflow-y: auto;
+
+        .table {
+            margin-bottom: 0;
+        }
+    }
+
+    .import-rarities {
+        .rarity-slider-wrapper {
+            @width: 24px;
+            @handle-height: @width;
+
+            height: @handle-height;
+            padding: @padding-base-vertical 0 @padding-base-vertical @padding-base-horizontal;
+            white-space: nowrap;
+
+            .box-sizing(content-box);
+
+            .rarity-slider,
+            .rarity-slider-display {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .rarity-slider {
+                @height: 10px;
+
+                width: 100px;
+                height: @height;
+                margin-right: 10px;
+                padding-right: (@width - 2px);
+
+                .noUi-handle {
+                    left: -1px;
+                    top: (-(@handle-height - @height + 2px) / 2);
+                    width: @width;
+                    height: @handle-height;
+                    cursor: pointer;
+
+                    .border-radius(100%);
+
+                    &::before,
+                    &::after {
+                        display: none;
+                    }
+                }
+
+                .noUi-origin  {
+                    right: (-@width - 2px);
+                }
+            }
+
+            .rarity-slider-display {
+                width: 30px;
+                text-align: left;
+            }
+        }
+    }
+
+}

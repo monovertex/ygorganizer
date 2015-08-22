@@ -1,0 +1,37 @@
+{% extends 'registration/registration_base.html' %}
+
+{% block subtitle %}Registration{% endblock %}
+
+{% block page_header %}
+    <strong>Register a new account</strong>
+{% endblock %}
+
+{% block page_body %}
+    {% if form.non_field_errors %}
+    <ul class="list-group">
+        {% for error in form.non_field_errors %}
+            <li class="list-group-item text-danger">
+                {{ error|escape }}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {% include 'form/input.html' with field=form.username %}
+
+        {% include 'form/input.html' with field=form.email input_type='email' %}
+
+        {% include 'form/input.html' with field=form.password1 input_type='password' %}
+
+        {% include 'form/input.html' with field=form.password2 input_type='password' %}
+
+        <hr />
+
+        <div class="text-right">
+            <button type="submit" name="login" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+{% endblock %}

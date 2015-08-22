@@ -1,3 +1,19 @@
+# Other versioning software
+.svn/
+
+# Generated / compiled files
+celerybeat-schedule
+static/scripts/build.js
+static/styles/build.js
+static/templates/build.js
+node_modules/
+
+# Sensitive data
+manage_prod.py
+conf/prod
+conf/local
+settings
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

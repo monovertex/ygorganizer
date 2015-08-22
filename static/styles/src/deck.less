@@ -1,0 +1,364 @@
+
+.deck-list {
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    @height: 150px;
+
+    .deck,
+    .add-button {
+        height: @height;
+        padding: 0 @padding-large-horizontal;
+        display: block;
+        border-bottom-width: 4px;
+        margin-top: 0;
+        margin-bottom: @padding-large-horizontal;
+    }
+
+    .add-button {
+        text-align: center;
+        line-height: @height;
+        font-size: 22px;
+    }
+
+    .deck {
+        text-align: left;
+
+        .deck-cards-preview {
+            height: @height;
+            padding: @padding-large-horizontal 0;
+
+            .display(flex);
+            .flex-wrap(wrap);
+            .align-content(stretch);
+            .justify-content(space-between);
+
+            .card-preview-wrapper {
+                min-width: 50%;
+                position: relative;
+
+                .flex(1 1 auto);
+
+                .card-preview {
+                    @margin: 3px;
+
+                    position: absolute;
+                    z-index: 1;
+                    top: @margin;
+                    right: @margin;
+                    bottom: @margin;
+                    left: @margin;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: center;
+                }
+            }
+        }
+
+        .deck-info-wrapper {
+            padding-left: 0;
+        }
+
+        .deck-info {
+            height: @height;
+
+            .display(flex);
+            .flex-direction(column);
+            .justify-content(space-around);
+
+            .card-count {
+                white-space: normal;
+
+                .label {
+                    position: static;
+                    display: inline-block;
+                }
+            }
+        }
+
+        .name,
+        .card-count {
+            margin: 0;
+        }
+    }
+}
+
+
+.deck-page {
+    height: 100%;
+
+    .display(flex);
+
+    .card-wrapper,
+    .deck-wrapper,
+    .browser-wrapper {
+        height: 100%;
+        overflow-y: auto;
+
+        .flex(0 0 auto);
+    }
+
+    @card-width: 20%;
+    @browser-width: 15%;
+
+    .card-wrapper {
+        width: @card-width;
+        background-color: @body-bg;
+        border-right: 1px solid @gray-lighter;
+    }
+
+    .browser-wrapper,
+    .deck-wrapper {
+        .display(flex);
+        .flex-direction(column);
+        .align-items(stretch);
+
+        .browser-controls,
+        .deck-controls {
+            background-color: @body-bg;
+            padding: @padding-base-vertical @padding-base-horizontal;
+
+            .flex(0 0 auto);
+        }
+
+        .browser-result,
+        .deck-card .card-middle {
+            background-color: lighten(@gray-lighter, 5%);
+
+            .border-radius(@border-radius-base);
+            .transition(background-color @transition-duration);
+
+            &:hover {
+                background-color: @gray-lighter;
+            }
+        }
+    }
+
+    .browser-wrapper {
+        width: @browser-width;
+        border-left: 1px solid @gray-lighter;
+
+        .display(flex);
+        .flex-direction(column);
+        .align-items(stretch);
+
+        .browser-results-wrapper {
+            background-color: @body-bg;
+            position: relative;
+
+            .flex(1 0 auto);
+
+            .browser-results {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 1;
+                overflow-y: auto;
+
+                .browser-result {
+                    @height: 70px;
+
+                    height: @height;
+                    padding: @padding-small-vertical;
+                    margin: @padding-small-vertical;
+                    cursor: pointer;
+
+                    .display(flex);
+
+                    .card-image,
+                    .card-image img,
+                    .info {
+                        height: 100%;
+                    }
+
+                    .card-image {
+                        .flex(0 0 auto);
+
+                        img {
+                            vertical-align: bottom;
+                        }
+                    }
+
+                    .info {
+                        padding-left: @padding-small-horizontal;
+                        .flex(1 1 auto);
+                    }
+                }
+            }
+        }
+    }
+
+    .deck-wrapper {
+        background-color: @body-bg;
+
+        .flex(1 1 auto);
+
+        .deck-controls {
+            #deck-name {
+                min-width: 250px;
+            }
+        }
+
+        .deck {
+            .flex(1 1 auto);
+
+            position: relative;
+
+            @main-rows: 4;
+            @card-columns-base: 10;
+            @card-columns-small: 12;
+            @card-columns-xs: 15;
+            @line-height: (100% / (@main-rows + 2));
+            @card-width-base: (100% / @card-columns-base);
+            @card-width-small: (100% / @card-columns-small);
+            @card-width-xs: (100% / @card-columns-xs);
+
+            .deck-main-wrapper,
+            .deck-side-wrapper,
+            .deck-extra-wrapper {
+                position: absolute;
+                right: 0;
+                left: 0;
+                z-index: 1;
+
+                .display(flex);
+                .flex-direction(column);
+                .align-items(stretch);
+
+                .header {
+                    padding: @padding-small-vertical 0;
+                    margin: 0 @padding-base-horizontal;
+                    border: 1px solid @gray-lighter;
+                    border-width: 1px 0;
+                    // background-color: @gray-lighter;
+
+                    .flex(0 0 auto);
+
+                    .title {
+                        margin: 0;
+                        padding: 0;
+                        font-size: @font-size-base;
+                        font-weight: bold;
+                        color: @brand-primary;
+                    }
+                }
+
+                .content-wrapper {
+                    position: relative;
+
+                    .flex(1 1 auto);
+
+                    .deck-content {
+                        position: absolute;
+                        top: @padding-base-vertical;
+                        right: @padding-base-horizontal;
+                        bottom: @padding-base-vertical;
+                        left: @padding-base-horizontal;
+                        z-index: 1;
+                        overflow: hidden;
+
+                        .display(flex);
+                        .flex-wrap(nowrap);
+                        .justify-content(flex-start);
+                        .align-content(flex-start);
+
+                        .deck-card {
+                            max-width: @card-width-base;
+                            position: relative;
+                            cursor: pointer;
+
+                            @padding: 5px;
+                            @margin-vertical: 5px;
+                            @margin-horizontal: 3px;
+
+                            .flex(0 1 @card-width);
+
+                            .card-middle {
+                                position: absolute;
+                                top: @margin-vertical;
+                                right: @margin-horizontal;
+                                bottom: @margin-vertical;
+                                left: @margin-horizontal;
+                                z-index: 1;
+
+                                .card-inner {
+                                    background-repeat: no-repeat;
+                                    background-color: transparent;
+                                    background-size: contain;
+                                    background-position: center;
+                                    position: absolute;
+                                    top: @padding;
+                                    right: @padding;
+                                    bottom: @padding;
+                                    left: @padding;
+                                    z-index: 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @height: (100% - (@line-height * 2));
+
+            .deck-main-wrapper {
+                top: 0;
+                bottom: (@line-height * 2);
+
+                .content-wrapper {
+                    .deck-content {
+                        .flex-wrap(wrap);
+
+                        .deck-card {
+                            height: (100% / @main-rows);
+                        }
+
+                        &.small,
+                        &.xs {
+                            .deck-card {
+                                max-width: @card-width-small;
+                                .flex-basis(@card-width-small);
+                            }
+                        }
+
+                        &.xs {
+                            .deck-card {
+                                height: (100% / (@main-rows + 1));
+                            }
+                        }
+                    }
+                }
+            }
+
+            .deck-extra-wrapper {
+                top: @height;
+                bottom: @line-height;
+            }
+
+            .deck-side-wrapper {
+                top: (@height + @line-height);
+                bottom: 0;
+            }
+
+            .deck-extra-wrapper,
+            .deck-side-wrapper {
+                .content-wrapper {
+                    .deck-content {
+                        .deck-card {
+                            max-width: @card-width-xs;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media all and (max-width: @grid-float-breakpoint) {
+        display: block;
+    }
+
+}

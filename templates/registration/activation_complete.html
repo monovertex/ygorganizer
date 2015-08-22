@@ -1,0 +1,21 @@
+{% extends 'registration/registration_base.html' %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="5;url={% url 'browse' %}" />
+{% endblock %}
+
+{% block subtitle %}Account Activation{% endblock %}
+
+{% block page_header %}
+    <strong>Account successfully activated</strong>
+{% endblock %}
+
+{% block page_body %}
+    <p>
+        Congratulations, your account is now activated!
+    </p>
+
+    <p>
+        Please wait, you will be redirected to your <a href="{% url 'browse' %}">homepage</a>.
+    </p>
+{% endblock %}

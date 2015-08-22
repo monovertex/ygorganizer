@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+
+{% block js %}
+    {% if view.bootstrap %}
+        <script type="text/javascript">
+            window.bootstrapData = {{view.bootstrap |safe}};
+        </script>
+    {% endif %}
+
+    {% if debug %}
+        <script src="{% static 'scripts/lib/require.js' %}"
+            data-main="{% static 'scripts/src/main.js' %}"></script>
+    {% else %}
+        <script src="{% static 'scripts/build.js' %}"></script>
+    {% endif %}
+{% endblock %}
+
+
+{% block body %}
+    <header class="global-header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle btn btn-sm navbar-btn" data-toggle="collapse" data-target="#global-navbar">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div class="navbar-brand">
+                        <img src="{% static 'images/logo.png' %}" alt="YGOrganizer" title="YGOrganizer" />
+                    </div>
+                </div>
+
+                <div class="collapse navbar-collapse" id="global-navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="{% block link_index %}{% endblock %}">
+                            <a href="{% url 'index' %}"><i class="fa fa-home"></i></a>
+                        </li>
+
+                        {% if request.user.is_authenticated %}
+                            <li class="{% block link_collection %}{% endblock %}">
+                                <a href="{% url 'collection' %}">Collection</a>
+                            </li>
+
+                            <li class="{% block link_browse %}{% endblock %}">
+                                <a href="{% url 'browse' %}">Browse Cards</a>
+                            </li>
+
+                            <li class="dropdown {% block link_import %}{% endblock %}">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Utilities <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <!-- <li class="{% block link_wishlist %}{% endblock %}">
+                                        <a href="{% url 'about' %}">Wishlist</a>
+                                    </li> -->
+
+                                    <!-- <li class="{% block link_trades %}{% endblock %}">
+                                        <a href="{% url 'about' %}">Trades</a>
+                                    </li> -->
+
+                                    <!-- <li class="{% block link_decks %}{% endblock %}">
+                                        <a href="{% url 'about' %}">Decks</a>
+                                    </li> -->
+
+                                    <li>
+                                        <a href="{% url 'import' %}">Import</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                        <li class="dropdown {% block link_about %}{% endblock %} {% block link_donations %}{% endblock %}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Help <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <!-- <li>
+                                    <a href="{% url 'about' %}">How To Use</a>
+                                </li> -->
+
+                                <li>
+                                    <a href="{% url 'about' %}">About</a>
+                                </li>
+
+                                <li>
+                                    <a href="{% url 'donations' %}">Donate</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="image-link">
+                            <a href="http://monovertex.com" target="_blank" title="Monovertex">
+                                <img src="{% static 'images/monovertex.png' %}" alt="Monovertex" />
+                            </a>
+                        </li>
+
+                        <li class="image-link">
+                            <a href="http://yugiohprices.com/" title="Yu-Gi-Oh! Prices" target="_blank">
+                                <img src="{% static 'images/yugioh-prices.png' %}" alt="Yu-Gi-Oh! Prices" />
+                            </a>
+                        </li>
+
+                        <li class="image-link">
+                            <a href="http://yugioh.wikia.com/" title="Yu-Gi-Oh! Wikia" target="_blank">
+                                <img src="{% static 'images/yugioh-wikia.png' %}" alt="Yu-Gi-Oh! Wikia" />
+                            </a>
+                        </li>
+
+                        {% if request.user.is_authenticated %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    {{ user.username }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'auth_password_change' %}">
+                                            Change Password
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'auth_logout' %}">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'auth_login' %}">Log In</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="global-wrapper page-{% block content_class %}{% endblock %}" id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="modal fade" id="confirm-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <strong>Are you sure you want to do this?</strong>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger yes">Yes</button>
+
+                    <button type="button" class="btn btn-default no">No</button>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

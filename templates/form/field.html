@@ -1,0 +1,24 @@
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+    <label for="field.id_for_label">
+        {{ field.label }}
+        {% if not optional %}<sup class="text-danger">*</sup>{% endif %}
+    </label>
+
+    {% block field_body %}{% endblock %}
+
+    {% if field.help_text %}
+        <p class="help-block">
+            {{ field.help_text }}
+        </p>
+    {% endif %}
+</div>
+
+{% if field.errors %}
+    <ul class="list-group">
+        {% for error in field.errors %}
+            <li class="list-group-item text-danger">
+                {{ error |escape }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

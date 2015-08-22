@@ -1,0 +1,44 @@
+{% extends 'pages/import/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block subtitle %}Import Collection Data{% endblock %}
+
+{% block content_class %}import{% endblock %}
+
+{% block link_import %}active{% endblock %}
+
+{% block content_small %}
+    <div class="page-header">
+        <strong>Import data into your collection</strong>
+    </div>
+
+    {% crispy view.form_upload %}
+{% endblock %}
+
+
+{% block after_body %}
+    <div class="modal fade" tabindex="-1" id="rarities-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                 <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                    </button>
+
+                    <h4 class="modal-title">Valid Rarities</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        {% for rarity in view.rarities %}
+                            <div class="col-sm-6 col-xs-12">
+                                {{ rarity.identifier }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

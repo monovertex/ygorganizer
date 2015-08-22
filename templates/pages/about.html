@@ -1,0 +1,44 @@
+{% extends 'page_base.html' %}
+
+{% block subtitle %}About{% endblock %}
+
+{% block content_class %}about{% endblock %}
+
+{% block link_about %}active{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-7 col-sm-12">
+                <div class="page-header">
+                    <strong>About YGOrganizer</strong>
+                </div>
+
+                <p><strong>YGOrganizer</strong> is created by <a href="http://monovertex.com" target="_blank">Monovertex</a>.<!-- The source of this project is available on <a href="#" target="_blank">GitHub</a>--></p>
+
+                <p>My name is Cosmin and in 2014 I decided to go back into the Yu-Gi-Oh! TCG scene, mainly as a collector, after more than 10 years. It was mostly because of the nostalgia caused by remembering this great game of my childhood, but I was also looking for a hobby.</p>
+
+                <p>However, as a collector I was quite frustrated that I couldn't find any well-built application or service to manage the cards I was getting my hands on (I am not saying there are none, I'm saying that I did not find any of the current options acceptable. You can read <a href="http://www.reddit.com/r/yugioh/comments/2fbwrr/best_site_to_manage_my_card_collection/ck8dpw5" target="_blank">this reddit post</a> to see my thoughts).</p>
+
+                <p>Thus, as a personal project, I started working on this application. It grabs data from 2 sources (mentioned below) and allows its users to mark which (and how many) cards they have or want, mainly. It also displays a lot of information about the cards and their printed version in a more sane and user-friendly way (I hope).</p>
+
+                <p>I would like to thank <strong><a href="http://yugiohprices.com/" target="_blank">Yu-Gi-Oh! Prices</a></strong> for making available their <a href="http://docs.yugiohprices.apiary.io/" target="_blank">public API</a>, which helps me provide card sets and pricing data for the cards.</p>
+
+                <p>I would also like to thank the <strong><a href="http://yugioh.wikia.com/" target="_blank">Yu-Gi-Oh! Wikia</a></strong> for their comprehensive card information database and for allowing me to crawl and display said card data in this application.</p>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1 col-sm-12 col-sm-offset-0">
+                {% include 'pages/donations_content.html' %}
+            </div>
+        </div>
+
+        <hr />
+
+        <p>Yu-Gi-Oh! is a trademark of <strong>Kazuki Takahashi</strong>, <strong>Konami</strong> &copy; 1996-{% now "Y" %}. This website is in no way affiliated with <strong>Konami</strong>.</p>
+
+        <p>The data on this website is purely informational and may not always be accurate or even correct. The data is provided as received from the <strong>Yu-Gi-Oh Wiki</strong> and the <strong>Yu-Gi-Oh! Prices</strong> and the owner of this application takes no responsibility for any issues that may arise from its users taking this information for granted.</p>
+    </div>
+{% endblock %}

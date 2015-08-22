@@ -1,0 +1,78 @@
+{% extends 'pages/import/base.html' %}
+
+{% block subtitle %}Select Import Rarities{% endblock %}
+
+{% block content_class %}import{% endblock %}
+
+{% block link_import %}active{% endblock %}
+
+{% block wrapper_classes %}
+    col-md-8 col-md-offset-2
+    col-sm-12 col-sm-offset-0
+    col-xs-12 col-xs-offset-0
+{% endblock %}
+
+{% block content_small %}
+    <div class="page-header">
+        <p>
+            <strong>Select card rarities</strong>
+        </p>
+
+        <p>
+            Some of the cards you are trying to import have multiple rarities and you did not specify one (or it was incorrect). Please select the rarities for your cards.
+        </p>
+    </div>
+
+    <form class="form import-rarities" method="post" action="">
+        {% csrf_token %}
+
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th class="text-center"><strong>#</strong></th>
+                    <th class="text-left"><strong>Set Number</strong></th>
+                    <th class="text-left"><strong>Card Name</strong></th>
+                    <th class="text-center" colspan="2"><strong>Rarities</strong></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for key, data in view.import_data.not_found_rarities.items %}
+                    {% for rarity_identifier, rarity_data in data.rarities.items %}
+                        <tr>
+                            {% if forloop.counter == 1 %}
+                                <td class="text-center" rowspan="{{ data.rarities | length }}">
+                                    {{ forloop.parentloop.counter }}
+                                </td>
+
+                                <td class="text-left" rowspan="{{ data.rarities | length }}">
+                                    {{ key }}
+                                </td>
+
+                                <td class="text-left" rowspan="{{ data.rarities | length }}">
+                                    {{ data.name }}
+                                </td>
+                            {% endif %}
+
+                            <td class="text-right">
+                                {{ rarity_data.name }}
+                            </td>
+
+                            <td class="rarity-slider-wrapper">
+                                <input type="hidden" name="rarity[{{ key }}][{{ rarity_identifier }}]" class="rarity-input" data-max="{{ data.count }}" />
+                                <div class="rarity-slider"></div>
+                                <div class="rarity-slider-display"></div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary pull-right">
+                Submit
+            </button>
+        </div>
+    </form>
+{% endblock %}

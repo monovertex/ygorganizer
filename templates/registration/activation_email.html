@@ -1,0 +1,22 @@
+{% load url from future %}
+
+
+<p>
+    Thank you for choosing YGOrganizer!
+</p>
+
+<p>
+    In order to activate your account, please access the following link within the next {{ expiration_days }} days:
+</p>
+
+
+<p>
+    <a href="http://{{site.domain}}{% url 'registration_activate' activation_key %}">
+        http://{{site.domain}}{% url 'registration_activate' activation_key %}
+    </a>
+</p>
+
+<p>
+    Have a nice day,<br />
+    YGOrganizer
+</p>
