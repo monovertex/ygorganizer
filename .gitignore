@@ -9,7 +9,6 @@ static/templates/build.js
 node_modules/
 
 # Sensitive data
-manage_prod.py
 conf/prod
 conf/local
 settings

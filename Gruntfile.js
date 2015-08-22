@@ -1,39 +1,47 @@
 module.exports = function (grunt) {
 
-    var debug = false;
-
     grunt.initConfig({
 
         folders: {
             scripts: {
                 base: 'static/scripts/',
-                src: 'static/scripts/src/',
-                lib: 'static/scripts/lib/'
+                src: '<%= folders.scripts.base %>src/',
+                lib: '<%= folders.scripts.base %>lib/'
             },
             styles: {
                 base: 'static/styles/',
-                src: 'static/styles/src/',
-                lib: 'static/styles/lib/'
+                src: '<%= folders.styles.base %>src/',
+                lib: '<%= folders.styles.base %>lib/'
             },
             templates: {
                 base: 'static/templates/',
-                src: 'static/templates/src/'
+                src: '<%= folders.templates.base %>src/'
             }
         },
 
         pkg: grunt.file.readJSON('package.json'),
 
         jshint: {
-            files: [
-                'Gruntfile.js',
-                '<%=folders.scripts.src %>**/*.js'
-            ],
             options: {
                 globals: {
                     console: true,
                     document: true
                 },
-                debug: debug
+            },
+            prod: {
+                options: {
+                    debug: false
+                },
+                src: [
+                    'Gruntfile.js',
+                    '<%= folders.scripts.src %>**/*.js'
+                ],
+            },
+            dev: {
+                options: {
+                    debug: true
+                },
+                src: '<%= jshint.prod.src %>'
             }
         },
 
@@ -163,20 +171,17 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    if (debug) {
-        grunt.registerTask('styles', ['less']);
-    } else {
-        grunt.registerTask('styles', ['less', 'autoprefixer', 'cssmin']);
-    }
+    grunt.registerTask('styles', ['less']);
 
-    if (debug) {
-        grunt.registerTask('scripts', ['jshint']);
-    } else {
-        grunt.registerTask('scripts', ['jshint', 'requirejs']);
-    }
+    grunt.registerTask('scripts', ['jshint:dev']);
 
     grunt.registerTask('templates', ['jst']);
 
     grunt.registerTask('default', ['templates', 'scripts', 'styles']);
+
+    grunt.registerTask('prod', [
+        'jst', 'jshint:prod', 'requirejs',
+        'less', 'autoprefixer', 'cssmin'
+    ]);
 
 };
