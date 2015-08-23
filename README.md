@@ -73,7 +73,7 @@ If you have any question or issue, contact me at contact@ygorganizer.com or post
 
 ## Contributors and important mentions ##
 
-** Thank you,**
+**Thank you,**
 
  * @mkaatman, for all his suggestions, ideas and support
  * All the folks over at the [/r/yugioh](https://www.reddit.com/r/yugioh/) subreddit for their suggestions and feedback
