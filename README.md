@@ -75,5 +75,5 @@ If you have any question or issue, contact me at contact@ygorganizer.com or post
 
 **Thank you,**
 
- * @mkaatman, for all his suggestions, ideas and support
+ * [@mkaatman](https://github.com/mkaatman), for all his suggestions, ideas and support
  * All the folks over at the [/r/yugioh](https://www.reddit.com/r/yugioh/) subreddit for their suggestions and feedback
