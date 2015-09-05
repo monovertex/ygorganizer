@@ -331,7 +331,7 @@ class UserCardVersion(models.Model):
 
 class UserCardVersionStatistics(models.Model):
     user = models.OneToOneField(User, primary_key=True,
-                                on_delete=models.PROTECT)
+                                on_delete=models.DO_NOTHING)
     count = models.PositiveIntegerField(default=0)
     price_low = models.FloatField(blank=True, null=True)
     price_avg = models.FloatField(blank=True, null=True)

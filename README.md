@@ -36,7 +36,7 @@ To compile files for the production environment (concatenation, minification), r
 
 ### III. Back-end ###
 
-For the back-end, I recommend that you use virtualenv to isolate the development environment for this project. [Initialize the virtualenv to your desired location, then activate it](https://virtualenv.pypa.io/en/latest/userguide.html). Use pip to install the required packages using the command `pip -r <path/to/source/directory>requirements.txt`.
+For the back-end, I recommend that you use virtualenv to isolate the development environment for this project. [Initialize the virtualenv to your desired location, then activate it](https://virtualenv.pypa.io/en/latest/userguide.html). Use pip to install the required packages using the command `pip install -r <path/to/source/directory>requirements.txt`.
 
 *Note: pyquery uses lxml, which might cause problems during installation. If so, start from their [installation instructions](http://lxml.de/installation.html) and see how to properly install it on your distribution.*
 
@@ -46,7 +46,9 @@ Then, head on to the conf folder and do the same thing for the `local` and `prod
 
 Finally, database. Make sure you completed the correct database credentials in the settings files, create the correct database in your MySQL server and also make sure the virtualenv is activated, then run `python manage.py migrate` from the source folder. This will create all the tables required.
 
-*Note: for the time being, there is no sample data provided. I will prepare a package in the future*
+As data, you can use this [MySQL Dump](https://s3.eu-central-1.amazonaws.com/ygorganizer/ygorganizer.sql) and this [media folder archive](https://s3.eu-central-1.amazonaws.com/ygorganizer/media.tar.gz). If you use the MySQL dump you'll no longer need to run the above migrate command. The media folder contents should go into the media folder path you defined in your Django settings.
+
+*Note: The media folder is a huge file (2GB).*
 
 All that remains now is to actually run the necessary processes. Use the script `conf/local/run.sh`. If you want importing and automatic price data fetching to work, also run `celery.sh` and, optionally, `flower.sh` for Celery monitorization.
 

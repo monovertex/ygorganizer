@@ -130,8 +130,11 @@ module.exports = function (grunt) {
 
         cssmin: {
             options: {
-                compatibility: 'ie8',
-                noAdvanced: true
+                advanced: false,
+                aggressiveMerging: false,
+                restructuring: false,
+                roundingPrecision: -1,
+                shorthandCompacting: false,
             },
             core: {
                 files: {
