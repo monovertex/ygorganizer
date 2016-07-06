@@ -1,5 +1,5 @@
 from django.db import models
-from ygo_core.models import Constant
+from ygo_core.models import Constant, Locale
 from ygo_core.utils import process_string
 from django.contrib.auth.models import User
 from os.path import join
@@ -12,6 +12,10 @@ class CardSet(models.Model):
     name = models.CharField(max_length=255, unique=True)
     requires_update = models.BooleanField(default=True)
     with_language_code = models.BooleanField(default=True)
+    dirty = models.BooleanField(default=False)
+    url = models.TextField(blank=True)
+    cookie = models.TextField(blank=True, null=True)
+    locale = models.ForeignKey(Locale, related_name='card_sources')
 
     def __unicode__(self):
         return '{}'.format(self.name)
@@ -71,18 +75,21 @@ def card_image_small(image, filename):
     return join('cards', 'small', filename)
 
 
+class CardSource(models.Model):
+    identifier = models.CharField(max_length=20)
+    locale = models.ForeignKey(Locale, related_name='card_sources')
+    card_set = models.ForeignKey(CardSet, related_name='card_sources')
+
+    class Meta:
+        unique_together = ('identifier', 'locale', )
+
+
 class Card(models.Model):
     identifier = models.CharField(max_length=255, unique=True)
-    number = models.CharField(max_length=8, null=True, blank=True)
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=255, null=True, blank=True)
-    requires_update = models.BooleanField(default=True)
     card_type = models.ForeignKey(CardType, related_name='cards', null=True,
                                   blank=True)
-    status_traditional = models.ForeignKey(CardStatus, null=True, blank=True,
-                                           related_name='traditional_cards')
-    status_advanced = models.ForeignKey(CardStatus, null=True, blank=True,
-                                        related_name='advanced_cards')
 
     spell_trap_property = models.ForeignKey(SpellTrapProperty,
                                             related_name='cards', null=True,
@@ -112,7 +119,6 @@ class Card(models.Model):
 
     def save(self, *args, **kwargs):
         self.search_text = ' '.join([
-            '' if self.identifier is None else self.identifier,
             '' if self.number is None else self.number,
             '' if self.name is None else self.name,
             '' if self.description is None else self.description
@@ -235,7 +241,6 @@ class CardVersion(models.Model):
     card_set = models.ForeignKey(CardSet, related_name='card_versions')
     set_number = models.CharField(max_length=15)
     rarity = models.ForeignKey(Rarity, related_name='card_versions')
-    dirty = models.BooleanField(default=False)
 
     search_text = models.TextField(blank=True)
 

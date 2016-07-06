@@ -27,3 +27,11 @@ class Constant(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Locale(models.Model):
+    identifier = models.CharField(max_length=10)
+    url = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return '{}'.format(self.identifier)
