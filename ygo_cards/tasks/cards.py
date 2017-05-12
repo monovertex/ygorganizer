@@ -38,15 +38,18 @@ def get_wiki_data(identifier):
             .parents('th').next().text())
     }
 
-    description_element = (card.find('td table table').eq(0)
-                           .find('tr').eq(2).find('td').eq(0))
+    try:
+        description_element = (card.find('td table table').eq(0)
+                               .find('tr').eq(2).find('td').eq(0))
 
-    description_element.html(re.sub(r'<br ?/?>', BREAK_TOKEN,
-                                    description_element.html()))
+        description_element.html(re.sub(r'<br ?/?>', BREAK_TOKEN,
+                                        description_element.html()))
 
-    data['description'] = process_string(description_element.text())
+        data['description'] = process_string(description_element.text())
 
-    data['description'] = data['description'].replace(BREAK_TOKEN, '<br />')
+        data['description'] = data['description'].replace(BREAK_TOKEN, '<br />')
+    except:
+        data['description'] = ''
 
     try:
         data['number'] = process_string(card.find('th a[title="Card Number"]')

@@ -273,7 +273,7 @@ class CardVersion(models.Model):
 
     def set_prices(self, data):
 
-        for key, value in data.iteritems():
+        for key, value in data['data']['prices'].iteritems():
             try:
                 setattr(self, 'price_' + key, float(value))
             except:
